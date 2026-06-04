@@ -1,0 +1,14 @@
+packages:
+  - "apps/*"
+  - "packages/*"
+  - "tooling/*"
+
+allowBuilds:
+  # esbuild needs its postinstall to download the native platform binary.
+  # Pulled in via drizzle-kit and tsx.
+  esbuild: true
+
+# pnpm 11 supply-chain policy: rejects packages newer than ~24h.
+# Useful safety for shared/CI repos; pure friction for a single-user
+# learning repo. Reintroduce a non-zero value when CI lands.
+minimumReleaseAge: 0

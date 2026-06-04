@@ -98,6 +98,14 @@ These are load-bearing. Violations are bugs.
 
 Follow the conventions in [`.claude/skills/code-style/SKILL.md`](.claude/skills/code-style/SKILL.md). That file is the source of truth for naming, control-flow braces, boolean prefixes, discriminated unions, branded types, and comment style. **Read it before writing or reviewing TypeScript here.** When this file and the skill disagree, the skill wins on style; this file wins on architecture.
 
+## How to work while building
+
+Explain as you build. This is a learning project — narrating why is part of the job, not optional. 
+As you implement each step, give a short why alongside the what: the reasoning behind the choice, how the piece fits the stack, and the main alternative. 
+Keep it proportional (a sentence or two per real decision, not an essay). 
+This is in addition to normal engineering discipline — still write concise code and verify with typechecks/tests; don't trade rigor for commentary. 
+At a genuine fork, surface both options and your recommendation before committing, then pause for review.
+
 ## Things I (the user) do that affect how you should work
 
 - I move across **IntelliJ, Cursor, and Claude Code** during the day. Configs and ignore files need to handle all three. Don't generate IDE-specific artifacts that one of the others won't understand.
