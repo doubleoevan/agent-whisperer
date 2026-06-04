@@ -1,28 +1,18 @@
-# LiteLLM model gateway config.
-#
-# Routing, fallback, and provider selection live HERE — never in app code.
-# Application code asks for an alias (the value in `model_name`); LiteLLM
-# decides which provider/model that resolves to.
-#
-# Add new aliases by appending entries. Provider creds come from env, which
-# docker-compose injects from the host shell (via `doppler run`).
-
+# routing and provider selection live here, never in app code
 model_list:
-  # Anthropic-only alias — useful for deterministic smoke tests.
+  # anthropic-only alias
   - model_name: chat-anthropic
     litellm_params:
       model: anthropic/claude-haiku-4-5-20251001
       api_key: os.environ/ANTHROPIC_API_KEY
 
-  # OpenAI-only alias — useful for deterministic smoke tests.
+  # openai-only alias
   - model_name: chat-openai
     litellm_params:
       model: openai/gpt-4o-mini
       api_key: os.environ/OPENAI_API_KEY
 
-  # "chat" is the alias app code uses. Two entries with the same model_name
-  # means LiteLLM load-balances across them (simple-shuffle by default).
-  # Demonstrates the "alias hides routing" property of the gateway.
+  # "chat" load-balances across both providers (alias hides routing)
   - model_name: chat
     litellm_params:
       model: anthropic/claude-haiku-4-5-20251001
@@ -33,7 +23,7 @@ model_list:
       api_key: os.environ/OPENAI_API_KEY
 
 litellm_settings:
-  # On any error from the chosen provider, retry across the others in the group.
+  # retry across the group on provider error
   num_retries: 2
 
 general_settings:

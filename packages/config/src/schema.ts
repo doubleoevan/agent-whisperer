@@ -1,27 +1,19 @@
 import { z } from "zod";
 
-/**
- * The single source of truth for env vars the app reads. Add new vars here
- * as later steps land (Temporal address in Step 5, LiteLLM in Step 4, etc).
- * Anything not in this schema is invisible to the app — `loadConfig()`
- * returns *only* validated, typed fields.
- */
+// single source of truth for env vars; loadConfig() returns only these
 export const ConfigSchema = z.object({
   NODE_ENV: z.enum(["development", "test", "production"]).default("development"),
 
-  // Runtime app-role connection. Subject to RLS.
+  // app role connection (row-level security applies)
   DATABASE_URL: z.string().url(),
-  // Migration-time superuser connection. Bypasses RLS. Optional at runtime —
-  // only `pnpm db:migrate` and admin scripts need it.
+  // superuser connection (bypasses row-level security); only needed by migrations/admin
   DATABASE_URL_ADMIN: z.string().url().optional(),
 
-  // LiteLLM gateway. The app only knows the base URL + a virtual key;
-  // provider keys (Anthropic, OpenAI, etc) are scoped to LiteLLM the service.
+  // LiteLLM gateway; provider keys live with LiteLLM, not the app
   LITELLM_BASE_URL: z.string().url(),
   LITELLM_API_KEY: z.string().min(1),
 
-  // Local: `temporal server start-dev` defaults. The worker connects via
-  // gRPC on 7233; the web UI runs on 8233.
+  // local `temporal server start-dev` defaults
   TEMPORAL_ADDRESS: z.string().min(1).default("localhost:7233"),
   TEMPORAL_NAMESPACE: z.string().min(1).default("default"),
 });

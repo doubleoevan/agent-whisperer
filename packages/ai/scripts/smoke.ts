@@ -1,10 +1,3 @@
-/**
- * 2-provider smoke test. Proves the full app → LiteLLM → provider loop.
- *
- *   chat-anthropic  -> Anthropic only        (deterministic)
- *   chat-openai     -> OpenAI only           (deterministic)
- *   chat            -> load-balanced both    (alias hides routing)
- */
 import { generateText } from "ai";
 import { makeAi, type ModelAlias } from "../src/index.ts";
 
@@ -18,24 +11,25 @@ if (!baseUrl || !apiKey) {
 const { modelFor } = makeAi({ baseUrl, apiKey });
 
 const prompt = "Reply with exactly one word: your provider name (anthropic or openai).";
-
 const aliases: readonly ModelAlias[] = ["chat-anthropic", "chat-openai", "chat"];
 
 let failures = 0;
+
+// call each alias once; the load-balanced `chat` may land on either provider
 for (const alias of aliases) {
   try {
-    const t0 = Date.now();
+    const startedAt = Date.now();
     const { text, response } = await generateText({
       model: modelFor(alias),
       prompt,
       maxTokens: 16,
     });
-    const dt = Date.now() - t0;
-    console.log(`✓ ${alias.padEnd(15)} -> "${text.trim()}"  (model=${response.modelId}, ${dt}ms)`);
-  } catch (err) {
+    const elapsedMs = Date.now() - startedAt;
+    console.log(`✓ ${alias.padEnd(15)} -> "${text.trim()}"  (model=${response.modelId}, ${elapsedMs}ms)`);
+  } catch (error) {
     failures += 1;
-    const msg = err instanceof Error ? err.message : String(err);
-    console.error(`✗ ${alias}: ${msg}`);
+    const message = error instanceof Error ? error.message : String(error);
+    console.error(`✗ ${alias}: ${message}`);
   }
 }
 

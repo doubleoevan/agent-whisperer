@@ -1,18 +1,18 @@
 import { loadConfig } from "../src/index.ts";
 
-// 1. With Doppler-injected env, loadConfig succeeds and returns typed fields.
-const ok = loadConfig();
-console.log("✓ loadConfig() ok; NODE_ENV =", ok.NODE_ENV);
+// happy path: doppler-injected env validates
+const validConfig = loadConfig();
+console.log("✓ loadConfig() ok; NODE_ENV =", validConfig.NODE_ENV);
 
-// 2. With a deliberately-bad env, loadConfig throws with a clear message.
+// invalid env: loadConfig throws with a useful message
 try {
   loadConfig({ DATABASE_URL: "not-a-url", NODE_ENV: "development" } as NodeJS.ProcessEnv);
   console.error("✗ expected throw on invalid env");
   process.exit(1);
-} catch (err) {
-  const msg = err instanceof Error ? err.message : String(err);
-  if (!msg.includes("DATABASE_URL")) {
-    console.error("✗ wrong error:", msg);
+} catch (error) {
+  const message = error instanceof Error ? error.message : String(error);
+  if (!message.includes("DATABASE_URL")) {
+    console.error("✗ wrong error:", message);
     process.exit(1);
   }
   console.log("✓ loadConfig() rejected invalid env with useful message");

@@ -4,16 +4,12 @@ packages:
   - "tooling/*"
 
 allowBuilds:
-  # esbuild needs its postinstall to download the native platform binary.
-  # Pulled in via drizzle-kit and tsx.
+  # esbuild postinstall fetches the native platform binary
   esbuild: true
-  # Temporal SDK transitive deps: @swc/core's postinstall fetches the native
-  # SWC binary the workflow bundler uses; protobufjs's postinstall compiles
-  # proto descriptors used by the Temporal gRPC client.
+  # @swc/core postinstall fetches the SWC binary the workflow bundler uses
   '@swc/core': true
+  # protobufjs postinstall compiles proto descriptors for the Temporal gRPC client
   protobufjs: true
 
-# pnpm 11 supply-chain policy: rejects packages newer than ~24h.
-# Useful safety for shared/CI repos; pure friction for a single-user
-# learning repo. Reintroduce a non-zero value when CI lands.
+# pnpm 11 supply-chain policy off for now; reintroduce when CI lands
 minimumReleaseAge: 0

@@ -7,9 +7,7 @@ export type Db = PostgresJsDatabase<typeof schema>;
 export type Tx = Parameters<Parameters<Db["transaction"]>[0]>[0];
 
 /**
- * Builds a Drizzle client. Stays env-free on purpose: workflow code can
- * transitively import this package, and reading env inside workflow modules
- * would break Temporal determinism.
+ * Builds a Drizzle client bound to the given connection string.
  */
 export function makeDb(connectionString: string): { db: Db; close: () => Promise<void> } {
   const client = postgres(connectionString, { prepare: false });
@@ -18,12 +16,7 @@ export function makeDb(connectionString: string): { db: Db; close: () => Promise
 }
 
 /**
- * Runs `fn` inside a transaction with `app.user_id` set, so RLS policies
- * scope all queries to this user. `set_config(..., true)` makes the GUC
- * transaction-local — auto-resets on commit/rollback.
- *
- * Every tenant-scoped DB call must go through this. The signature enforces
- * the discipline: the callback receives `tx`, not `db`.
+ * Runs `fn` inside a transaction with the `app.user_id` session setting set, so row-level security scopes queries to this user.
  */
 export async function withUser<T>(db: Db, userId: string, fn: (tx: Tx) => Promise<T>): Promise<T> {
   return db.transaction(async (tx) => {

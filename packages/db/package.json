@@ -14,7 +14,7 @@
     "db:generate": "doppler run -- drizzle-kit generate",
     "db:migrate": "doppler run -- tsx scripts/migrate.ts",
     "db:studio": "doppler run -- drizzle-kit studio",
-    "check:rls": "doppler run -- tsx scripts/check-rls.ts"
+    "check:tenant-isolation": "doppler run -- tsx scripts/check-tenant-isolation.ts"
   },
   "dependencies": {
     "drizzle-orm": "^0.36.4",

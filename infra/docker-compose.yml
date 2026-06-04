@@ -31,7 +31,7 @@ services:
     volumes:
       - ./litellm/config.yaml:/app/config.yaml:ro
     environment:
-      # Pulled from the host shell (i.e. doppler run -- docker compose up).
+      # pulled from the host shell via `doppler run -- docker compose up`
       LITELLM_MASTER_KEY: ${LITELLM_MASTER_KEY:?LITELLM_MASTER_KEY required}
       ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY:?ANTHROPIC_API_KEY required}
       OPENAI_API_KEY: ${OPENAI_API_KEY:?OPENAI_API_KEY required}
