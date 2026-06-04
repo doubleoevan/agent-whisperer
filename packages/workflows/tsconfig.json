@@ -1,0 +1,4 @@
+{
+  "extends": "@agent-whisperer/tsconfig/node.json",
+  "include": ["src/**/*.ts"]
+}

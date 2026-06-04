@@ -1,0 +1,23 @@
+{
+  "name": "@agent-whisperer/workflows",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    "./workflows": "./src/workflows/index.ts",
+    "./activities": "./src/activities/index.ts"
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@agent-whisperer/domain": "workspace:*",
+    "@temporalio/activity": "^1.11.6",
+    "@temporalio/workflow": "^1.11.6"
+  },
+  "devDependencies": {
+    "@agent-whisperer/tsconfig": "workspace:*",
+    "@types/node": "^22.10.2",
+    "typescript": "^5.7.2"
+  }
+}

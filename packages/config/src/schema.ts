@@ -19,6 +19,11 @@ export const ConfigSchema = z.object({
   // provider keys (Anthropic, OpenAI, etc) are scoped to LiteLLM the service.
   LITELLM_BASE_URL: z.string().url(),
   LITELLM_API_KEY: z.string().min(1),
+
+  // Local: `temporal server start-dev` defaults. The worker connects via
+  // gRPC on 7233; the web UI runs on 8233.
+  TEMPORAL_ADDRESS: z.string().min(1).default("localhost:7233"),
+  TEMPORAL_NAMESPACE: z.string().min(1).default("default"),
 });
 
 export type Config = z.infer<typeof ConfigSchema>;
