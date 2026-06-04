@@ -17,6 +17,7 @@
     "check:tenant-isolation": "doppler run -- tsx scripts/check-tenant-isolation.ts"
   },
   "dependencies": {
+    "@agent-whisperer/domain": "workspace:*",
     "drizzle-orm": "^0.36.4",
     "postgres": "^3.4.5"
   },

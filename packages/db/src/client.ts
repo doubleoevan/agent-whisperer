@@ -1,3 +1,4 @@
+import type { UserId } from "@agent-whisperer/domain";
 import { drizzle, type PostgresJsDatabase } from "drizzle-orm/postgres-js";
 import { sql } from "drizzle-orm";
 import postgres from "postgres";
@@ -18,7 +19,7 @@ export function makeDb(connectionString: string): { db: Db; close: () => Promise
 /**
  * Runs `fn` inside a transaction with the `app.user_id` session setting set, so row-level security scopes queries to this user.
  */
-export async function withUser<T>(db: Db, userId: string, fn: (tx: Tx) => Promise<T>): Promise<T> {
+export async function withUser<T>(db: Db, userId: UserId, fn: (tx: Tx) => Promise<T>): Promise<T> {
   return db.transaction(async (tx) => {
     await tx.execute(sql`select set_config('app.user_id', ${userId}, true)`);
     return fn(tx);

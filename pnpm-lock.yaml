@@ -92,6 +92,9 @@ importers:
 
   packages/db:
     dependencies:
+      '@agent-whisperer/domain':
+        specifier: workspace:*
+        version: link:../domain
       drizzle-orm:
         specifier: ^0.36.4
         version: 0.36.4(@opentelemetry/api@1.9.0)(postgres@3.4.9)(react@19.2.7)
@@ -126,15 +129,27 @@ importers:
 
   packages/workflows:
     dependencies:
+      '@agent-whisperer/db':
+        specifier: workspace:*
+        version: link:../db
       '@agent-whisperer/domain':
         specifier: workspace:*
         version: link:../domain
       '@temporalio/activity':
         specifier: ^1.11.6
         version: 1.17.2
+      '@temporalio/client':
+        specifier: ^1.11.6
+        version: 1.17.2
+      '@temporalio/common':
+        specifier: ^1.11.6
+        version: 1.17.2
       '@temporalio/workflow':
         specifier: ^1.11.6
         version: 1.17.2
+      drizzle-orm:
+        specifier: ^0.36.4
+        version: 0.36.4(@opentelemetry/api@1.9.0)(postgres@3.4.9)(react@19.2.7)
     devDependencies:
       '@agent-whisperer/tsconfig':
         specifier: workspace:*

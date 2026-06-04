@@ -11,9 +11,13 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
+    "@agent-whisperer/db": "workspace:*",
     "@agent-whisperer/domain": "workspace:*",
     "@temporalio/activity": "^1.11.6",
-    "@temporalio/workflow": "^1.11.6"
+    "@temporalio/client": "^1.11.6",
+    "@temporalio/common": "^1.11.6",
+    "@temporalio/workflow": "^1.11.6",
+    "drizzle-orm": "^0.36.4"
   },
   "devDependencies": {
     "@agent-whisperer/tsconfig": "workspace:*",

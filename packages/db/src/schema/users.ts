@@ -1,8 +1,9 @@
+import type { UserId } from "@agent-whisperer/domain";
 import { pgTable, text, timestamp, uuid } from "drizzle-orm/pg-core";
 
 // tenant root; row-level security does not apply, app role has SELECT only
 export const users = pgTable("users", {
-  id: uuid("id").primaryKey().defaultRandom(),
+  id: uuid("id").$type<UserId>().primaryKey().defaultRandom(),
   email: text("email").notNull().unique(),
   displayName: text("display_name").notNull(),
   createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),

@@ -53,7 +53,7 @@ The order is deliberate. Earlier steps unblock later ones; later steps are inten
   6. **Outbox + outboxCoordinatorWorkflow.** Eternal coordinator polls `FOR UPDATE SKIP LOCKED`, starts per-run workflows idempotently (`WorkflowIdConflictPolicy: USE_EXISTING`), `continueAsNew` to bound history. A coordinator-starter ensures it's running at boot. **All workflow kick-offs go through the outbox** — MCP tools insert an outbox row in the same DB transaction as their state change, never `client.start()` directly.
   7. MCP server skeleton (stdio) exposing one tool that starts a workflow (via the outbox). Register in opencode with scoped permissions; call it from opencode.
   8. Confirm the opencode → LiteLLM → model loop end-to-end.
-  9. ESLint rule pinning `packages/workflows` → `packages/domain` only (workflows must stay deterministic; no leaking infra deps in).
+  9. ESLint rule pinning `packages/workflows/src/workflows/**` → `packages/domain` only (workflow code must stay deterministic; activities under `src/activities/**` may still import db, ai, etc.).
 - **Days 3–6** — Domain work on top of the skeleton (TBD as it emerges).
 - **Days 7–8 — Scraper.** Playwright-based, **off the critical path.** If the scraper slips, the rest of the system still functions.
 - **Days 9+** — TBD.
@@ -92,7 +92,7 @@ These are load-bearing. Violations are bugs.
 - **No hardcoded model IDs in app code.** Routing, fallback, and provider selection live in LiteLLM's config. App code only knows aliases.
 - **`userId` is mandatory on every table and every query.** Even when there's only one user, the column exists and the `WHERE userId = ?` is present. This is the single most important multi-tenancy invariant.
 - **Workflow kick-offs go through the outbox.** Never call `client.start()` from a request handler, MCP tool, or HTTP endpoint. The outbox is the boundary between "I changed state" and "a workflow will run."
-- **`packages/workflows` may only import from `packages/domain`.** Enforced by ESLint. Workflows must remain deterministic — no DB clients, no `fetch`, no `Date.now()`, no env reads inside workflow code (activities are where side effects live).
+- **`packages/workflows/src/workflows/**` may only import from `packages/domain` and Temporal's workflow SDK.** Enforced by ESLint (Step 9). Workflow code must be deterministic — no DB clients, no `fetch`, no `Date.now()`, no env reads. `packages/workflows/src/activities/**` is where side effects live; activities are free to import db, ai, and anything else.
 
 ## Code style
 

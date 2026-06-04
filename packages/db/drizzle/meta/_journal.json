@@ -15,6 +15,34 @@
       "when": 1780608355637,
       "tag": "0001_rls_and_seed",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1780612758380,
+      "tag": "0002_outstanding_wallow",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1780612770179,
+      "tag": "0003_outbox_security",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1780613990072,
+      "tag": "0004_gray_moonstone",
+      "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1780615621923,
+      "tag": "0005_odd_multiple_man",
+      "breakpoints": true
     }
   ]
 }

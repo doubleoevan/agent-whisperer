@@ -1,9 +1,7 @@
 import { proxyActivities } from "@temporalio/workflow";
-import type { HelloInput, HelloResult } from "@agent-whisperer/domain";
-import type * as activities from "../activities/index.ts";
+import type { HelloActivities, HelloInput, HelloResult } from "@agent-whisperer/domain";
 
-// proxyActivities dispatches to the real activity from inside the workflow sandbox
-const { sayHello } = proxyActivities<typeof activities>({
+const { sayHello } = proxyActivities<HelloActivities>({
   startToCloseTimeout: "30 seconds",
 });
 

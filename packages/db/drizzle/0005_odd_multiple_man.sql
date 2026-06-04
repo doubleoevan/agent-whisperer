@@ -1,0 +1,1 @@
+ALTER TABLE "outbox" RENAME COLUMN "completed_at" TO "settled_at";
