@@ -1,0 +1,30 @@
+{
+  "name": "@agent-whisperer/db",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "exports": {
+    ".": "./src/index.ts",
+    "./schema": "./src/schema/index.ts"
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "db:generate": "doppler run -- drizzle-kit generate",
+    "db:migrate": "doppler run -- tsx scripts/migrate.ts",
+    "db:studio": "doppler run -- drizzle-kit studio",
+    "check:rls": "doppler run -- tsx scripts/check-rls.ts"
+  },
+  "dependencies": {
+    "drizzle-orm": "^0.36.4",
+    "postgres": "^3.4.5"
+  },
+  "devDependencies": {
+    "@agent-whisperer/tsconfig": "workspace:*",
+    "@types/node": "^22.10.2",
+    "drizzle-kit": "^0.30.1",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.2"
+  }
+}
