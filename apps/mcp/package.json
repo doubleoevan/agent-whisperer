@@ -6,6 +6,7 @@
   "main": "./src/index.ts",
   "scripts": {
     "typecheck": "tsc --noEmit",
+    "lint": "pnpm exec eslint .",
     "dev": "doppler run -- tsx src/index.ts",
     "smoke": "doppler run -- tsx scripts/smoke.ts"
   },
@@ -17,6 +18,7 @@
     "zod": "^3.24.1"
   },
   "devDependencies": {
+    "@agent-whisperer/eslint-config": "workspace:*",
     "@agent-whisperer/tsconfig": "workspace:*",
     "@types/node": "^22.10.2",
     "tsx": "^4.19.2",

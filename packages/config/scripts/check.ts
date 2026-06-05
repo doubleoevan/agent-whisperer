@@ -6,7 +6,7 @@ console.log("✓ loadConfig() ok; NODE_ENV =", validConfig.NODE_ENV);
 
 // invalid env: loadConfig throws with a useful message
 try {
-  loadConfig({ DATABASE_URL: "not-a-url", NODE_ENV: "development" } as NodeJS.ProcessEnv);
+  loadConfig({ DATABASE_URL: "not-a-url", NODE_ENV: "development" });
   console.error("✗ expected throw on invalid env");
   process.exit(1);
 } catch (error) {

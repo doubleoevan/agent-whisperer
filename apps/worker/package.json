@@ -6,8 +6,9 @@
   "main": "./src/index.ts",
   "scripts": {
     "typecheck": "tsc --noEmit",
+    "lint": "pnpm exec eslint .",
     "dev": "doppler run -- tsx src/index.ts",
-    "trigger:hello": "doppler run -- tsx scripts/trigger-hello.ts"
+    "enqueue:hello": "doppler run -- tsx scripts/enqueue-hello.ts"
   },
   "dependencies": {
     "@agent-whisperer/config": "workspace:*",
@@ -18,6 +19,7 @@
     "@temporalio/worker": "^1.11.6"
   },
   "devDependencies": {
+    "@agent-whisperer/eslint-config": "workspace:*",
     "@agent-whisperer/tsconfig": "workspace:*",
     "@types/node": "^22.10.2",
     "tsx": "^4.19.2",

@@ -9,9 +9,11 @@
     ".": "./src/index.ts"
   },
   "scripts": {
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "lint": "pnpm exec eslint ."
   },
   "devDependencies": {
+    "@agent-whisperer/eslint-config": "workspace:*",
     "@agent-whisperer/tsconfig": "workspace:*",
     "typescript": "^5.7.2"
   }

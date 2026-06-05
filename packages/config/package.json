@@ -10,12 +10,14 @@
   },
   "scripts": {
     "typecheck": "tsc --noEmit",
+    "lint": "pnpm exec eslint .",
     "check": "doppler run -- tsx scripts/check.ts"
   },
   "dependencies": {
     "zod": "^3.24.1"
   },
   "devDependencies": {
+    "@agent-whisperer/eslint-config": "workspace:*",
     "@agent-whisperer/tsconfig": "workspace:*",
     "@types/node": "^22.10.2",
     "tsx": "^4.19.2",

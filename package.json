@@ -1,6 +1,7 @@
 {
   "name": "agent-whisperer",
   "private": true,
+  "type": "module",
   "packageManager": "pnpm@11.5.1",
   "engines": {
     "node": ">=20.11"
@@ -13,6 +14,8 @@
     "clean": "turbo run clean && rm -rf node_modules"
   },
   "devDependencies": {
+    "@agent-whisperer/eslint-config": "workspace:*",
+    "eslint": "^9.17.0",
     "turbo": "^2.3.0",
     "typescript": "^5.7.2"
   }

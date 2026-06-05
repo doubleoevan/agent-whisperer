@@ -11,6 +11,7 @@
   },
   "scripts": {
     "typecheck": "tsc --noEmit",
+    "lint": "pnpm exec eslint .",
     "db:generate": "doppler run -- drizzle-kit generate",
     "db:migrate": "doppler run -- tsx scripts/migrate.ts",
     "db:studio": "doppler run -- drizzle-kit studio",
@@ -22,6 +23,7 @@
     "postgres": "^3.4.5"
   },
   "devDependencies": {
+    "@agent-whisperer/eslint-config": "workspace:*",
     "@agent-whisperer/tsconfig": "workspace:*",
     "@types/node": "^22.10.2",
     "drizzle-kit": "^0.30.1",
