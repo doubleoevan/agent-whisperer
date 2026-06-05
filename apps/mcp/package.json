@@ -1,0 +1,25 @@
+{
+  "name": "@agent-whisperer/mcp",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "main": "./src/index.ts",
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "dev": "doppler run -- tsx src/index.ts",
+    "smoke": "doppler run -- tsx scripts/smoke.ts"
+  },
+  "dependencies": {
+    "@agent-whisperer/config": "workspace:*",
+    "@agent-whisperer/db": "workspace:*",
+    "@agent-whisperer/domain": "workspace:*",
+    "@modelcontextprotocol/sdk": "^1.0.4",
+    "zod": "^3.24.1"
+  },
+  "devDependencies": {
+    "@agent-whisperer/tsconfig": "workspace:*",
+    "@types/node": "^22.10.2",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.2"
+  }
+}
