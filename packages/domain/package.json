@@ -1,5 +1,6 @@
 {
   "name": "@agent-whisperer/domain",
+  "description": "framework-free shared kernel: branded ids, data shapes, and activity contracts",
   "version": "0.0.0",
   "private": true,
   "type": "module",

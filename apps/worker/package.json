@@ -1,5 +1,6 @@
 {
   "name": "@agent-whisperer/worker",
+  "description": "Temporal worker that registers activities and boots the eternal outbox coordinator",
   "version": "0.0.0",
   "private": true,
   "type": "module",

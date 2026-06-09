@@ -1,5 +1,6 @@
 {
   "name": "@agent-whisperer/tsconfig",
+  "description": "shared TypeScript base and Node configs for the workspace",
   "version": "0.0.0",
   "private": true,
   "files": [

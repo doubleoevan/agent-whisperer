@@ -1,5 +1,6 @@
 {
   "name": "@agent-whisperer/ai",
+  "description": "model client layer over the Vercel AI SDK, targeting the LiteLLM gateway",
   "version": "0.0.0",
   "private": true,
   "type": "module",

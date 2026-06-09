@@ -1,5 +1,6 @@
 {
   "name": "@agent-whisperer/eslint-config",
+  "description": "shared flat ESLint configuration for the workspace",
   "version": "0.0.0",
   "private": true,
   "type": "module",

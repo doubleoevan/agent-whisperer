@@ -1,5 +1,6 @@
 {
   "name": "@agent-whisperer/db",
+  "description": "Drizzle schema, Postgres client, row-level-security tenant helpers, and outbox enqueue",
   "version": "0.0.0",
   "private": true,
   "type": "module",

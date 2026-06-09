@@ -1,5 +1,6 @@
 {
   "name": "@agent-whisperer/mcp",
+  "description": "Model Context Protocol server (stdio) exposing tools that enqueue workflows via the outbox",
   "version": "0.0.0",
   "private": true,
   "type": "module",

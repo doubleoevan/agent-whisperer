@@ -1,5 +1,6 @@
 {
   "name": "@agent-whisperer/config",
+  "description": "Zod-validated, typed environment configuration",
   "version": "0.0.0",
   "private": true,
   "type": "module",

@@ -1,5 +1,6 @@
 {
   "name": "@agent-whisperer/workflows",
+  "description": "Temporal workflows (deterministic) and their side-effectful activities",
   "version": "0.0.0",
   "private": true,
   "type": "module",
