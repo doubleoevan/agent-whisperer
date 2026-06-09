@@ -76,7 +76,7 @@ agent-whisperer/
 ├── tooling/
 │   ├── eslint-config/
 │   └── tsconfig/
-├── infrastructure/       # docker-compose for Postgres, LiteLLM config, etc.
+├── deployment/           # docker-compose for Postgres, LiteLLM config, etc.
 ├── pnpm-workspace.yaml
 ├── turbo.json
 └── CLAUDE.md

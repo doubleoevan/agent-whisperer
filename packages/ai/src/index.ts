@@ -1,7 +1,7 @@
 import { createOpenAICompatible } from "@ai-sdk/openai-compatible";
 import type { LanguageModelV1 } from "ai";
 
-// aliases the app may request; mapped to providers in infrastructure/litellm/config.yaml
+// aliases the app may request; mapped to providers in deployment/litellm/config.yaml
 export type ModelAlias = "chat" | "chat-anthropic" | "chat-openai";
 
 export type AiClientOptions = {
