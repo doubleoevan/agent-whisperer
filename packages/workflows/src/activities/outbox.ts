@@ -2,11 +2,11 @@ import type { OutboxActivities, OutboxClaim } from "@agent-whisperer/domain";
 import { and, eq, sql } from "drizzle-orm";
 import type { Client } from "@temporalio/client";
 import { WorkflowIdConflictPolicy } from "@temporalio/common";
-import type { Db } from "@agent-whisperer/db";
-import { schema } from "@agent-whisperer/db";
+import type { Database } from "@agent-whisperer/database";
+import { schema } from "@agent-whisperer/database";
 
 export type OutboxActivityDeps = {
-  adminDb: Db;
+  adminDatabase: Database;
   client: Client;
   taskQueue: string;
 };
@@ -14,11 +14,11 @@ export type OutboxActivityDeps = {
 /**
  * Builds outbox activities bound to a db connection and Temporal client.
  */
-export function makeOutboxActivities({ adminDb, client, taskQueue }: OutboxActivityDeps): OutboxActivities {
+export function makeOutboxActivities({ adminDatabase, client, taskQueue }: OutboxActivityDeps): OutboxActivities {
   return {
     claimPendingOutboxBatch: async (limit) => {
       // FOR UPDATE SKIP LOCKED lets parallel coordinators take disjoint batches without blocking
-      const rows = await adminDb.execute<OutboxClaim>(sql`
+      const rows = await adminDatabase.execute<OutboxClaim>(sql`
         with claimed as (
           select id from outbox
           where status = 'pending'
@@ -47,7 +47,7 @@ export function makeOutboxActivities({ adminDb, client, taskQueue }: OutboxActiv
       });
       // workflow is running; bookkeeping failure must not poison the row (sweeper reconciles)
       try {
-        await adminDb
+        await adminDatabase
           .update(schema.outbox)
           .set({ status: "processed", settledAt: new Date() })
           .where(eq(schema.outbox.id, row.id));
@@ -58,7 +58,7 @@ export function makeOutboxActivities({ adminDb, client, taskQueue }: OutboxActiv
     },
 
     markOutboxRowFailed: async (rowId, errorMessage) => {
-      await adminDb
+      await adminDatabase
         .update(schema.outbox)
         .set({ status: "failed", lastError: errorMessage, settledAt: new Date() })
         .where(and(eq(schema.outbox.id, rowId), eq(schema.outbox.status, "claimed")));

@@ -1,14 +1,14 @@
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
 import { loadConfig } from "@agent-whisperer/config";
-import { makeDb } from "@agent-whisperer/db";
+import { makeDatabase } from "@agent-whisperer/database";
 import { enqueueHello, enqueueHelloInputSchema } from "./tools/enqueue-hello.ts";
 
 // stdout is the MCP transport; all logs must go to stderr
 const log = (message: string) => process.stderr.write(`[mcp] ${message}\n`);
 
 const config = loadConfig();
-const { db, close: closeDb } = makeDb(config.DATABASE_URL);
+const { database, close: closeDatabase } = makeDatabase(config.DATABASE_URL);
 
 const server = new McpServer({
   name: "agent-whisperer",
@@ -22,7 +22,7 @@ server.registerTool(
     inputSchema: enqueueHelloInputSchema,
   },
   async (input) => {
-    const { workflowId } = await enqueueHello(db, input);
+    const { workflowId } = await enqueueHello(database, input);
     return {
       content: [{ type: "text", text: `enqueued workflowId: ${workflowId}` }],
     };
@@ -32,7 +32,7 @@ server.registerTool(
 const shutdown = async () => {
   log("shutting down");
   await server.close();
-  await closeDb();
+  await closeDatabase();
   process.exit(0);
 };
 process.on("SIGINT", () => void shutdown());

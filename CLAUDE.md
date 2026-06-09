@@ -50,7 +50,7 @@ The order is deliberate. Earlier steps unblock later ones; later steps are inten
   3. Doppler + `packages/config` typed env loader.
   4. LiteLLM gateway running. `packages/ai` wraps the AI SDK with `modelFor(alias)`; smoke-test two providers through one alias.
   5. Hello-world Temporal workflow + activity, running locally.
-  6. **Outbox + outboxCoordinatorWorkflow.** Eternal coordinator polls `FOR UPDATE SKIP LOCKED`, starts per-run workflows idempotently (`WorkflowIdConflictPolicy: USE_EXISTING`), `continueAsNew` to bound history. A coordinator-starter ensures it's running at boot. **All workflow kick-offs go through the outbox** — MCP tools insert an outbox row in the same DB transaction as their state change, never `client.start()` directly.
+  6. **Outbox + outboxCoordinatorWorkflow.** Eternal coordinator polls `FOR UPDATE SKIP LOCKED`, starts per-run workflows idempotently (`WorkflowIdConflictPolicy: USE_EXISTING`), `continueAsNew` to bound history. The worker idempotently ensures the coordinator is running at boot (fixed workflow id + `USE_EXISTING`). **All workflow kick-offs go through the outbox** — MCP tools insert an outbox row in the same DB transaction as their state change, never `client.start()` directly.
   7. MCP server skeleton (stdio) exposing one tool that starts a workflow (via the outbox). Register in opencode with scoped permissions; call it from opencode.
   8. Confirm the opencode → LiteLLM → model loop end-to-end.
   9. ESLint rule pinning `packages/workflows/src/workflows/**` → `packages/domain` only (workflow code must stay deterministic; activities under `src/activities/**` may still import db, ai, etc.).
@@ -70,7 +70,7 @@ agent-whisperer/
 ├── packages/
 │   ├── ai/               # AI SDK wrapper + modelFor(alias) → LiteLLM
 │   ├── config/           # typed env loader (Doppler-fed)
-│   ├── db/               # Drizzle schema, client, migrations
+│   ├── database/         # Drizzle schema, client, migrations
 │   ├── domain/           # pure domain types/logic — workflow-safe (deterministic)
 │   └── workflows/        # Temporal workflows + activities; may import only `domain`
 ├── tooling/

@@ -13,7 +13,7 @@
   },
   "dependencies": {
     "@agent-whisperer/config": "workspace:*",
-    "@agent-whisperer/db": "workspace:*",
+    "@agent-whisperer/database": "workspace:*",
     "@agent-whisperer/domain": "workspace:*",
     "@modelcontextprotocol/sdk": "^1.0.4",
     "zod": "^3.24.1"

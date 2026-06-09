@@ -33,10 +33,17 @@ export type HelloActivities = {
   sayHello: (input: HelloInput) => Promise<HelloResult>;
 };
 
+// canonical set of workflow types; values must match the exported workflow function names
+export const WORKFLOW_TYPE = {
+  hello: "helloWorkflow",
+  outboxCoordinator: "outboxCoordinatorWorkflow",
+} as const;
+export type WorkflowType = (typeof WORKFLOW_TYPE)[keyof typeof WORKFLOW_TYPE];
+
 export type OutboxClaim = {
   id: string;
   userId: UserId;
-  workflowType: string;
+  workflowType: WorkflowType;
   workflowId: WorkflowId;
   input: unknown;
 };

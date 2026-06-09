@@ -9,6 +9,7 @@ export const runs = pgTable("runs", {
   id: uuid("id").primaryKey().defaultRandom(),
   userId: uuid("user_id").$type<UserId>().notNull().references(() => users.id, { onDelete: "cascade" }),
   kind: text("kind").notNull(),
+  // TODO: runs needs its own status vocabulary (not the outbox's) once a real feature uses it
   status: text("status").notNull().default("pending"),
   createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
 }, (table) => [

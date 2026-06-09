@@ -12,7 +12,7 @@ export const outbox = pgTable("outbox", {
   // globally unique by construction: enqueueWorkflow builds it as `${type}-${userId}-${key}`
   workflowId: text("workflow_id").$type<WorkflowId>().notNull().unique(),
   input: jsonb("input").notNull(),
-  status: text("status").notNull().default("pending"),
+  status: text("status").$type<OutboxStatus>().notNull().default("pending"),
   attempts: integer("attempts").notNull().default(0),
   lastError: text("last_error"),
   createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
@@ -28,5 +28,7 @@ export const outbox = pgTable("outbox", {
     withCheck: sql`${table.userId} = current_setting('app.user_id')::uuid`,
   }),
 ]).enableRLS();
+
+export type OutboxStatus = "pending" | "claimed" | "processed" | "failed";
 
 export type OutboxRow = typeof outbox.$inferSelect;

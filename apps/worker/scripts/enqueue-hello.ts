@@ -1,17 +1,18 @@
 import { Client, Connection } from "@temporalio/client";
 import { loadConfig } from "@agent-whisperer/config";
-import { enqueueWorkflow, makeDb, V1_USER_ID, withUser } from "@agent-whisperer/db";
+import { enqueueWorkflow, makeDatabase, V1_USER_ID, withUser } from "@agent-whisperer/database";
+import { WORKFLOW_TYPE } from "@agent-whisperer/domain";
 import type { helloWorkflow } from "@agent-whisperer/workflows/workflows";
 
 const config = loadConfig();
 
 // enqueue runs as the app role; row-level security enforces userId on insert
-const { db, close } = makeDb(config.DATABASE_URL);
+const { database, close } = makeDatabase(config.DATABASE_URL);
 
-const { workflowId } = await withUser(db, V1_USER_ID, async (tx) =>
-  enqueueWorkflow(tx, {
+const { workflowId } = await withUser(database, V1_USER_ID, async (transaction) =>
+  enqueueWorkflow(transaction, {
     userId: V1_USER_ID,
-    workflowType: "helloWorkflow",
+    workflowType: WORKFLOW_TYPE.hello,
     input: { userId: V1_USER_ID, name: "Evan" },
   }),
 );

@@ -13,7 +13,7 @@
     "lint": "pnpm exec eslint ."
   },
   "dependencies": {
-    "@agent-whisperer/db": "workspace:*",
+    "@agent-whisperer/database": "workspace:*",
     "@agent-whisperer/domain": "workspace:*",
     "@temporalio/activity": "^1.11.6",
     "@temporalio/client": "^1.11.6",

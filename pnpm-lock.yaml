@@ -26,9 +26,9 @@ importers:
       '@agent-whisperer/config':
         specifier: workspace:*
         version: link:../../packages/config
-      '@agent-whisperer/db':
+      '@agent-whisperer/database':
         specifier: workspace:*
-        version: link:../../packages/db
+        version: link:../../packages/database
       '@agent-whisperer/domain':
         specifier: workspace:*
         version: link:../../packages/domain
@@ -60,9 +60,9 @@ importers:
       '@agent-whisperer/config':
         specifier: workspace:*
         version: link:../../packages/config
-      '@agent-whisperer/db':
+      '@agent-whisperer/database':
         specifier: workspace:*
-        version: link:../../packages/db
+        version: link:../../packages/database
       '@agent-whisperer/domain':
         specifier: workspace:*
         version: link:../../packages/domain
@@ -139,7 +139,7 @@ importers:
         specifier: ^5.7.2
         version: 5.9.3
 
-  packages/db:
+  packages/database:
     dependencies:
       '@agent-whisperer/domain':
         specifier: workspace:*
@@ -184,9 +184,9 @@ importers:
 
   packages/workflows:
     dependencies:
-      '@agent-whisperer/db':
+      '@agent-whisperer/database':
         specifier: workspace:*
-        version: link:../db
+        version: link:../database
       '@agent-whisperer/domain':
         specifier: workspace:*
         version: link:../domain

@@ -13,7 +13,7 @@
   },
   "dependencies": {
     "@agent-whisperer/config": "workspace:*",
-    "@agent-whisperer/db": "workspace:*",
+    "@agent-whisperer/database": "workspace:*",
     "@agent-whisperer/domain": "workspace:*",
     "@agent-whisperer/workflows": "workspace:*",
     "@temporalio/client": "^1.11.6",
