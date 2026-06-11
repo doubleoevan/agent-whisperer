@@ -13,18 +13,22 @@
     "lint": "pnpm exec eslint ."
   },
   "dependencies": {
+    "@agent-whisperer/ai": "workspace:*",
     "@agent-whisperer/database": "workspace:*",
     "@agent-whisperer/domain": "workspace:*",
+    "@composio/core": "^0.10.0",
     "@temporalio/activity": "^1.11.6",
     "@temporalio/client": "^1.11.6",
     "@temporalio/common": "^1.11.6",
     "@temporalio/workflow": "^1.11.6",
-    "drizzle-orm": "^0.36.4"
+    "drizzle-orm": "^0.36.4",
+    "mammoth": "^1.8.0"
   },
   "devDependencies": {
     "@agent-whisperer/eslint-config": "workspace:*",
     "@agent-whisperer/tsconfig": "workspace:*",
     "@types/node": "^22.10.2",
+    "tsx": "^4.19.2",
     "typescript": "^5.7.2"
   }
 }
