@@ -4,6 +4,8 @@ import type { LanguageModelV1 } from "ai";
 // aliases the app may request; mapped to providers in infrastructure/litellm/config.yaml
 export type ModelAlias = "chat" | "chat-anthropic" | "chat-openai";
 
+export type ModelFor = (alias: ModelAlias) => LanguageModelV1;
+
 export type AiClientOptions = {
   baseUrl: string;
   apiKey: string;
@@ -13,7 +15,7 @@ export type AiClientOptions = {
  * Builds a `modelFor(alias)` factory bound to a LiteLLM endpoint.
  */
 export function makeAi({ baseUrl, apiKey }: AiClientOptions): {
-  modelFor: (alias: ModelAlias) => LanguageModelV1;
+  modelFor: ModelFor;
 } {
   const provider = createOpenAICompatible({
     name: "litellm",
@@ -24,3 +26,6 @@ export function makeAi({ baseUrl, apiKey }: AiClientOptions): {
     modelFor: (alias) => provider.chatModel(alias),
   };
 }
+
+export { generateQueryLetter } from "./query-letter.ts";
+export { parseSubmissionFieldSpecs } from "./submission-fields.ts";
