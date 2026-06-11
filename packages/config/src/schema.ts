@@ -16,6 +16,9 @@ export const ConfigSchema = z.object({
   // local `temporal server start-dev` defaults
   TEMPORAL_ADDRESS: z.string().min(1).default("localhost:7233"),
   TEMPORAL_NAMESPACE: z.string().min(1).default("default"),
+
+  // composio api key; google drive/docs access lives in composio, not in our app
+  COMPOSIO_API_KEY: z.string().min(1),
 });
 
 export type Config = z.infer<typeof ConfigSchema>;

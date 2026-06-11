@@ -12,10 +12,12 @@
     "enqueue:hello": "doppler run -- tsx scripts/enqueue-hello.ts"
   },
   "dependencies": {
+    "@agent-whisperer/ai": "workspace:*",
     "@agent-whisperer/config": "workspace:*",
     "@agent-whisperer/database": "workspace:*",
     "@agent-whisperer/domain": "workspace:*",
     "@agent-whisperer/workflows": "workspace:*",
+    "@composio/core": "^0.10.0",
     "@temporalio/client": "^1.11.6",
     "@temporalio/worker": "^1.11.6"
   },
